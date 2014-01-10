@@ -1,0 +1,4 @@
+*.o
+xsrecord
+*.ppm
+*.moc.cpp

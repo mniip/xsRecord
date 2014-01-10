@@ -26,7 +26,10 @@ void AppWindow::startStop()
 		StartStop->setText(QString::fromUtf8("\xE2\x97\xBE"));
 		recording = 1;
 		setWindowState(Qt::WindowMinimized);
-		Queue::Start(Output->text().toUtf8().constData());
+		if(Output->text().isEmpty())
+			Queue::Start("./");
+		else
+			Queue::Start(Output->text().toUtf8().constData());
 		int fps = Fps->value();
 		unsigned long int sleep = 1000000/fps;
 		while(recording)
@@ -62,6 +65,8 @@ void AppWindow::screenshot()
 void AppWindow::browse()
 {
 	Output->setText(QFileDialog::getExistingDirectory(this, tr("Select output directory"), Output->text(), QFileDialog::ShowDirsOnly));
+	if(Output->text().isEmpty())
+		Output->setText(tr("./"));
 }
 
 void AppWindow::update()
